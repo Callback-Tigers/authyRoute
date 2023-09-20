@@ -1,5 +1,6 @@
 import React, { useEffect,useState } from "react";
-import axios from "axios";
+// import axios from "axios";
+import auth from "../utils/auth";
 
 // token =""
 
@@ -15,7 +16,8 @@ const Dashboard = ({token, setToken}) => {
         console.log("token is there 1", token)
          
                 console.log("token is there 2", token)
-                axios.get("https://instagram-express-app.vercel.app/api/auth/zuku", {
+                // axios.get("https://instagram-express-app.vercel.app/api/auth/zuku", {
+                    auth.get("/zuku", {
                     headers:{
                         "Authorization" : `Bearer ${token!=""?token: localStorage.getItem("token")}`
                     }
@@ -37,7 +39,8 @@ const Dashboard = ({token, setToken}) => {
 
     function logout(){
           // api call for logout => delete token from db
-          axios.delete("https://instagram-express-app.vercel.app/api/auth/logout", {
+        //   axios.delete("https://instagram-express-app.vercel.app/api/auth/logout", {
+            auth.delete("/logout", {
             headers:{
                 "Authorization" : `Bearer ${token}`
             }

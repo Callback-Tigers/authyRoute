@@ -1,5 +1,6 @@
 import React,{useState} from "react";
-import axios from "axios";
+// import axios from "axios";
+import auth from "../utils/auth";
 
 const Signup = ({setToken}) => {
    
@@ -26,7 +27,8 @@ const Signup = ({setToken}) => {
 
         // api call
         try{
-             const response =  await axios.post("https://instagram-express-app.vercel.app/api/auth/signup",
+            //  const response =  await axios.post("https://instagram-express-app.vercel.app/api/auth/signup",
+            const response =  await auth.post("/signup",
              {name:name, email:email, password:password})
             //  console.log(response.data) 
                 setSuccess(response.data.message)
