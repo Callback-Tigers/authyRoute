@@ -13,24 +13,26 @@ const Dashboard = ({token, setToken}) => {
 
     useEffect(()=>{
         console.log("token is there 1", token)
-         if(token){
+         
                 console.log("token is there 2", token)
                 axios.get("https://instagram-express-app.vercel.app/api/auth/zuku", {
                     headers:{
-                        "Authorization" : `Bearer ${token}`
+                        "Authorization" : `Bearer ${token!=""?token: localStorage.getItem("token")}`
                     }
                 })
                 .then(res=>{
                      console.log(res.data.data.message, res.data.data.user.name)
                    setZuku(res.data.data.message)
                    setName(res.data.data.user.name)
+                   
+                  
                 }   
                 )
                 .catch(err=>{
                     console.log(err)
                 }
                 )
-         }
+         
     },[token])
 
     function logout(){
@@ -45,6 +47,8 @@ const Dashboard = ({token, setToken}) => {
                 setZuku("")
                 setName("")
                 setToken("")
+                // remove token from local storage
+                localStorage.removeItem("token")
             }
           )
             .catch(err=>{
@@ -64,7 +68,7 @@ const Dashboard = ({token, setToken}) => {
             {
                 zuku && <p>Mark Zuckerberg says: {zuku}</p>
             }
-            {token && <button onClick={logout}>Logout</button>}
+            {name && <button onClick={logout}>Logout</button>}
         </div>
     )
      

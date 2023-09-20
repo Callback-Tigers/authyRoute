@@ -27,6 +27,8 @@ const Login = ({setToken}) => {
                 setSuccess(response.data.message)
                 setToken(response.data.data.token)
                 setError("")
+                //save token to local storage:
+                localStorage.setItem("token",response.data.data.token)
         }
 
         catch(err){
@@ -36,6 +38,7 @@ const Login = ({setToken}) => {
             console.log(err.response.data.message)
             setError(err.response.data.message)
             setSuccess("")
+
         }
         
     }

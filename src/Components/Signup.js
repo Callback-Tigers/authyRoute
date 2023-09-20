@@ -32,6 +32,8 @@ const Signup = ({setToken}) => {
                 setSuccess(response.data.message)
                 setToken(response.data.data.token)
                 setError("")
+                //save token to local storage: 
+                localStorage.setItem("token",response.data.data.token)
         }
 
         catch(err){
