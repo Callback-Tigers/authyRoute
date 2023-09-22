@@ -1,15 +1,20 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect,useState, useContext } from "react";
 // import axios from "axios";
 import auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
 // token =""
 
-const Dashboard = ({token, setToken}) => {
+const Dashboard = () => {
 
     const [zuku,setZuku] = useState("")
     const [name,setName] = useState("")
+    const {token,setToken} = useContext(AuthContext);
 
     console.log(token)
+
+    const navigate = useNavigate();
 
 
     useEffect(()=>{
@@ -52,6 +57,8 @@ const Dashboard = ({token, setToken}) => {
                 setToken("")
                 // remove token from local storage
                 localStorage.removeItem("token")
+                alert("You are successfully logged out")
+                navigate("/login")
             }
           )
             .catch(err=>{

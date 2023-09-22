@@ -4,22 +4,25 @@ import Dashboard from "./Components/Dashboard";
 import Login from "./Components/Login";
 import "./App.css";
 
+import { Routes, Route } from "react-router-dom";
+
 
 
 const App = () => {
 
-  const [token,setToken] = useState("")
+ 
 
   return(
     <div>
-      <div style={{
-        display:"flex",
-        justifyContent:"space-around"
-      }}>
-        <Signup  setToken={setToken}/>
-        <Login  setToken={setToken}/>
-      </div>
-      <Dashboard token={token} setToken={setToken}/>
+     
+     <Routes>
+        <Route path="/" element={<Signup/>}/>
+        {/* <Route path="/signup" element={<Signup/>}/> */}
+        <Route path="/login" element= {<Login />} />
+        <Route path="/dashboard" element={<Dashboard/>}/>
+        
+
+      </Routes>
 
     </div>
   )

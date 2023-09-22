@@ -1,12 +1,23 @@
-import React,{useState} from "react";
+import React,{useState, useEffect, useContext} from "react";
 // import axios from "axios";
 import auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
-const Login = ({setToken}) => {
+const Login = () => {
    
     const [user,setUser] = useState({email:"",password:""});
     const [error,setError] = useState("");
     const [success,setSuccess] = useState("");
+    const {setToken} = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(localStorage.getItem("token") != null){
+            navigate("/dashboard")
+        }
+    },[])
     
 
     const {email,password} = user;
@@ -31,6 +42,8 @@ const Login = ({setToken}) => {
                 setError("")
                 //save token to local storage:
                 localStorage.setItem("token",response.data.data.token)
+                alert("You are successfully logged in")
+                navigate("/dashboard")
         }
 
         catch(err){
@@ -48,6 +61,7 @@ const Login = ({setToken}) => {
 
     return(
         <div>
+            <h1>Login</h1>
 
             {
                 error && <h3>{error}</h3>

@@ -1,12 +1,26 @@
-import React,{useState} from "react";
+import React,{useState,useEffect, useContext} from "react";
 // import axios from "axios";
 import auth from "../utils/auth";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthContext";
 
-const Signup = ({setToken}) => {
+const Signup = () => {
    
     const [user,setUser] = useState({name:"",email:"",password:"",cpassword:""});
     const [error,setError] = useState("");
     const [success,setSuccess] = useState("");
+    const {setToken} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        if(localStorage.getItem("token") != null){
+            navigate("/dashboard")
+        }
+    },[])
+
+
+
+    
     
 
     const {name,email,password,cpassword} = user;
@@ -36,6 +50,10 @@ const Signup = ({setToken}) => {
                 setError("")
                 //save token to local storage: 
                 localStorage.setItem("token",response.data.data.token)
+                // redirect to dashboard
+                alert("You are successfully signed up")
+                navigate("/dashboard")
+                
         }
 
         catch(err){
@@ -52,6 +70,7 @@ const Signup = ({setToken}) => {
 
     return(
         <div>
+            <h1>Sign Up</h1>
 
             {
                 error && <h3>{error}</h3>
